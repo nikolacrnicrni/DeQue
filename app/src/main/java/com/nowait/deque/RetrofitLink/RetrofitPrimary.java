@@ -1,9 +1,12 @@
 package com.nowait.deque.RetrofitLink;
 
+import com.nowait.deque.InterfejsiAPI.AllUstanove;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by user on 31.5.2018..
@@ -11,7 +14,7 @@ import retrofit2.Retrofit;
 
 public class RetrofitPrimary
 {
-    private static final String ROOT_URL = "http://katera.news/";
+    private static final String ROOT_URL = "http://paviljondedinje.com";
 
     static OkHttpClient client = new OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -35,7 +38,7 @@ public class RetrofitPrimary
      *
      * @return API Service
      */
-    public static PrimarniAPI getApiPrimarni() {
-        return getRetrofitInstance().create(PrimarniAPI.class);
+    public static AllUstanove getApiPrimarni() {
+        return getRetrofitInstance().create(AllUstanove.class);
     }
 }

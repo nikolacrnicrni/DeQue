@@ -10,15 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nowait.deque.Model.AllUstanoveModel;
 import com.nowait.deque.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -52,14 +50,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        if(position >= (getItemCount() - 1) && isMoreDataAvailable && !isLoading && loadMoreListener != null)
-        {
-            isLoading = true;
-            loadMoreListener.onLoadMore();
-        }
+//        if(position >= (getItemCount() - 1) && isMoreDataAvailable && !isLoading && loadMoreListener != null)
+//        {
+//            isLoading = true;
+//            loadMoreListener.onLoadMore();
+//        }
 
 
-        holder.datum.setText("");
+        holder.naslov.setText("Naziv ustanove: " + articles.get(position).getNAZIV());
+        holder.datum.setText("Broj šaltera: " + articles.get(position).getBROJSALTERA());
+        holder.adresa.setText("Adresa ustanove: " + articles.get(position).getADRESA());
+//        holder.trenutno_stanje.setText("Broj ljudi na šalteru: " + articles.get(position).());
 
 
     }
@@ -85,18 +86,22 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView naslov, datum;
+        private TextView naslov, datum, adresa, trenutno_stanje;
         private ImageView slika;
-        private RelativeLayout relativeLayout;
+        private LinearLayout linearLayout;
 
         public ViewHolder(View view) {
             super(view);
 
-//            datum = (TextView)view.findViewById(R.id.datum);
+            datum = (TextView)view.findViewById(R.id.datum);
+            naslov = (TextView)view.findViewById(R.id.naslov);
+            adresa = (TextView)view.findViewById(R.id.adresa);
+            linearLayout = (LinearLayout) view.findViewById(R.id.card_view);
+//            trenutno_stanje = (TextView)view.findViewById(R.id.trenutno_stanje);
 
             //Podesava mogucnost klika na Card
-            relativeLayout.setClickable(true);
-            relativeLayout.setOnClickListener(this);
+            linearLayout.setClickable(true);
+            linearLayout.setOnClickListener(this);
 
 
         }
@@ -109,8 +114,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>{
             }
         }
     }
-
-
 
     public void setMoreDataAvailable(boolean moreDataAvailable)
     {
